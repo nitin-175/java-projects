@@ -1,0 +1,62 @@
+************** FILE NAME: simplePrinter.java *****************
+
+
+package simplePrinter;
+
+public class printer {
+	private int tonerLevel;
+	private int pagesPrinted;
+	private boolean duplex;
+	
+	
+	public printer(int tonerLevel, boolean duplex) {
+		this.pagesPrinted=0;
+		this.tonerLevel = (tonerLevel>= 0 && tonerLevel <=100) ? tonerLevel : -1;  
+		this.duplex = duplex;
+	}
+	
+
+	public int addToner(int tonerAmount) {
+		int total = tonerLevel + tonerAmount;
+		if(total>100 || total <0) {
+			return -1;
+		}
+		tonerLevel += tonerAmount;
+		return tonerLevel;
+		
+	}
+	
+	public int printPages(int pages) {
+		int jobPages= (duplex)? (pages/2) + (pages%2) : pages;
+		pagesPrinted += jobPages;
+		return jobPages;
+	}
+	
+	public int getPagesPrinted() {
+		return pagesPrinted;
+	}
+}
+
+
+
+
+
+******************* FILE NAME: Main.java ********************
+
+
+package simplePrinter;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		printer p=new printer(50, true);
+		System.out.println("The pages count is =" + p.getPagesPrinted());
+		int pagesPrinted= p.printPages(10);
+		System.out.printf("current job pafes: %d %n" , pagesPrinted, p.getPagesPrinted());
+		
+		
+	}
+
+}
+
