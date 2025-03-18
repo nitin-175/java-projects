@@ -1,0 +1,160 @@
+************************ FILE NAME: car.java **************************
+
+
+public class car {
+	private String description;
+	
+	public car(String description) {
+		this.description= description;
+	}
+	
+	public void startEngine() {
+		System.out.println("Engine has been started...");
+	}
+	
+	public void drive() {
+		System.out.println("Which mode you want to drive..   " + getClass().getSimpleName());
+	}
+	
+	protected void runEngine() {
+		System.out.println("Driver will run the engine");
+	}
+	
+}
+
+class GasPoweredCar extends car{
+	public double avgKmPerLiter;
+	public int cylinders = 6;
+	
+	public GasPoweredCar(String description) {
+		super(description);
+	}
+	
+	public GasPoweredCar(String description, double avgKmPerLiter, int cylinders) {
+		super(description);
+		this.avgKmPerLiter = avgKmPerLiter;
+		this.cylinders = cylinders;
+	}
+
+	@Override
+	public void startEngine() {
+		System.out.printf("gas -> all %d cylinders are fired up, ready! %n" , cylinders);
+	}
+
+	@Override
+	protected void runEngine() {
+		System.out.printf("gas -> usage exceeds the average: %.2f %n" , avgKmPerLiter);
+	}
+ }
+
+
+
+class ElectricCar extends car{
+	public double avgKmPerCharge;
+	public int batterySize=6;
+	
+	public ElectricCar(String description) {
+		super(description);
+	}
+
+	public ElectricCar(String description, double avgKmPerCharge, int batterySize) {
+		super(description);
+		this.avgKmPerCharge = avgKmPerCharge;
+		this.batterySize = batterySize;
+	}
+	
+	@Override
+	public void startEngine() {
+		System.out.printf("BEV -> switch %d Kwh battery on , ready! %n" , batterySize);
+	}
+
+	@Override
+	protected void runEngine() {
+		System.out.printf("BEV -> usage the average: %.2f %n" , avgKmPerCharge);
+	}
+	
+	
+}
+
+
+class HybridCar extends car{
+	public double avgKmPerLitre;
+	public int batterySize;
+	public int cylinders=6;
+	
+	
+	public HybridCar(String description) {
+		super(description);
+	}
+
+	public HybridCar(String description, double avgKmPerLitre, int batterySize, int cylinders) {
+		super(description);
+		this.avgKmPerLitre = avgKmPerLitre;
+		this.batterySize = batterySize;
+		this.cylinders = cylinders;
+	}
+	
+	@Override
+	public void startEngine() {
+		System.out.printf("Hybrid -> %d cylinders are fired up. %n" ,cylinders);
+		System.out.printf("Hybrid -> switch %d Kwh battery on , ready! %n" ,batterySize);
+	}
+
+	@Override
+	protected void runEngine() {
+		System.out.printf("Hybrid -> usage the average: %.2f %n" , avgKmPerLitre);
+	}
+	
+	
+}
+
+
+
+
+
+
+
+
+
+**************************** FILE NAME: Main.java ********************************
+
+
+
+public class carMain {
+
+	public static void main(String[] args) {
+		car c=new car("BMW 7 series");
+		runRace(c);
+		
+		System.out.println();
+		
+		car bmw= new GasPoweredCar("Bmw 6 series", 7.5, 6);
+		runRace(bmw);
+		
+		System.out.println();
+		
+		car audi=new ElectricCar("Audi q7", 555, 90);
+		runRace(audi);
+		
+		System.out.println();
+		
+		car tata=new HybridCar("tata", 90, 450, 8);
+		runRace(tata);
+		
+	}
+	
+	public static void runRace(car c) {
+		c.startEngine();
+		c.drive();
+		c.runEngine();
+	}
+}
+
+
+
+ 
+
+
+
+
+
